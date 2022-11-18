@@ -38,6 +38,7 @@ import hudson.util.FormValidation;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.*;
 import javax.servlet.ServletException;
 
@@ -104,7 +105,7 @@ public final class IONPublisher extends Notifier implements Serializable {
         }
 
         final String muleApplication = muleApplications.get(0);
-        final File localMuleApplication = File.createTempFile("jenkins-build-", ".zip");
+        final File localMuleApplication = Files.createTempFile("jenkins-build-", ".zip").toFile();
         final FilePath filePath = new FilePath(localMuleApplication);
         final FilePath remoteMuleApplication = build.getWorkspace().child(muleApplication);
         remoteMuleApplication.copyTo(filePath);
